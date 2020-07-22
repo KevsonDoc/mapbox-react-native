@@ -3,7 +3,7 @@ import { StyleSheet, View, PermissionsAndroid, Image } from "react-native";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import Geolocation from 'react-native-geolocation-service';
 
-import Marker from '../../assets/Marker.jpg';
+import Search from '../Search';
 
 MapboxGL.setAccessToken("pk.eyJ1Ijoia2V2c29uZG9jIiwiYSI6ImNrY3Rwd2Z6YTIxMGwycnM1MHVrcnJ6aWwifQ.kb34aAVTeAVc4Ozr08sghA");
 MapboxGL.setConnected(true);
@@ -54,7 +54,7 @@ export default function App() {
   }, [hasLocationPermission]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, }}>
       <MapboxGL.MapView
         logoEnabled={false}
         compassViewPosition={1, 2, 3}
@@ -64,17 +64,14 @@ export default function App() {
         <MapboxGL.Camera
           centerCoordinate={[ userPosition.longitude , userPosition.latitude ]} //Primeiro a longitude depois a latitude
           zoomLevel={15}
-          pitch={0}
           showUserLocation
         />
         <MapboxGL.PointAnnotation
-          id="point"
-          title="Ola"
-          coordinate={[userPosition.longitude, userPosition.latitude]}
-        >
-          <Image style={{ width: 50, height: 50 }} source={require('../../assets/Marker.jpg')}/>
-        </MapboxGL.PointAnnotation>
+          id="first-annotation"
+          coordinate={[ userPosition.longitude , userPosition.latitude ]}
+        />
       </MapboxGL.MapView>
+      <Search />
     </View>
   );
 }
